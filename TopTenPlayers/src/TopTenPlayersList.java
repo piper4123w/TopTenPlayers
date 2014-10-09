@@ -6,7 +6,7 @@ public class TopTenPlayersList {
   }
   
   public void addEntry(String name, double score) {
-    
+    list
   }
   
   public void removeFirst() {
