@@ -1,14 +1,16 @@
 
 public class Player {
   private String name;
-  private int score;
+  private double score;
+  private Player nextPlayer;
   
-  public Player(String name, int score) {
+  public Player(String name, double score, Player nextPlayer) {
     this.name = name;
     this.score = score;
+    this.nextPlayer = nextPlayer;
   }
 
-  public int getScore() {
+  public double getScore() {
     return score;
   }
   
@@ -22,5 +24,13 @@ public class Player {
   
   public void setName(String name) {
     this.name = name;
+  }
+  
+  public Player getNext() {
+    return nextPlayer;
+  }
+  
+  public void setNext(Player nextPlayer) {
+    this.nextPlayer = nextPlayer;
   }
 }
