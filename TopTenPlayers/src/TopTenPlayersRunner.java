@@ -45,6 +45,7 @@ public class TopTenPlayersRunner {
     int pScore;
     in.readLine(); // disreagard the first line in the input file
     while ((line = in.readLine()) != null) {
+      System.out.println("in the loop");
       int i = parseNumGames(line); // You need to implement parseNumGames
                       // yourself
       if (i == -1)
