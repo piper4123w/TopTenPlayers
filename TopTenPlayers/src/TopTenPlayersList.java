@@ -3,39 +3,45 @@ public class TopTenPlayersList {
 
   public void addEntry(String name, double score) {
     Player entry = new Player(name, score, null);
+    Player check = first;
+//    while(check.getName() !)
     if (isEmpty()) {    // if this is the first player
       first = entry;
-      System.out.println(first.getName());
     }
-    else if(first.getNext() == null) {
-      if(first.getScore() > entry.getScore()) {
+    else if (first.getNext() == null) {   // is the second player
+      if (first.getScore() > entry.getScore()) {
         first.setNext(entry);
-        System.out.println(entry.getName());
       }
       else {
         entry.setNext(first);
         first = entry;
-        System.out.println(first.getName());
       }
     }
     else {
-      Player current = first;
-      boolean doIt = true;
-      while(entry.getScore() < current.getScore()) {
-        if(current.getNext() == null) {
-          current.setNext(entry);
-          System.out.println(entry.getName());
-          doIt = false;
-          break;
-        }
-        else {
-          current = current.getNext();
-        }
-      }
-      if(doIt) {
-        entry.setNext(current);
-        System.out.println(entry.getName());
+      if (first.getScore() < entry.getScore()) {
+        entry.setNext(first);
         first = entry;
+      }
+      else {
+        Player before = first;
+        Player after = first;
+        Player current = first;
+        while (after != null && entry.getScore() < after.getScore()) {
+          after = after.getNext();
+        }
+        while (before.getNext() != null && entry.getScore() < before.getNext().getScore()) {
+          before = before.getNext();
+        }
+        entry.setNext(after);
+        before.setNext(entry);
+        while (before.getScore() != first.getScore()) {
+          while (current.getNext().getScore() != before.getScore()) {
+            current = current.getNext();
+          }
+          before = current;
+          current = first;
+        }
+        first = current;
       }
     }
   }
@@ -52,7 +58,7 @@ public class TopTenPlayersList {
       for (int i = 10; i > 0; i--) {
         if (current.getNext().getNext() == null) {
           current.setNext(null);
-          
+
           break;
         }
         current = current.getNext();
@@ -71,18 +77,16 @@ public class TopTenPlayersList {
     }
     else {
       boolean last = false;
-      while (!last){
+      while (!last) {
         System.out.println(current.getName() + " " + String.valueOf(current.getScore()));
         current = current.getNext();
-        if(current == null) {
+        if (current == null) {
           last = true;
         }
       }
     }
-//    System.out.println(print);
 
   }
-  
 
   public boolean isEmpty() {
     if (first == null) {
