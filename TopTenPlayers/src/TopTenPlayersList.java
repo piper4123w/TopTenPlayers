@@ -64,6 +64,7 @@ public class TopTenPlayersList {
     else {
       while (current.getNext() != null) {
         print = current.getName() + " " + String.valueOf(current.getScore()) + "\n";
+        current = current.getNext();
       }
     }
     return print;
