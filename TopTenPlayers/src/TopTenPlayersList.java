@@ -3,21 +3,47 @@ public class TopTenPlayersList {
 
   public void addEntry(String name, double score) {
     Player entry = new Player(name, score, null);
-    Player check = first;
-//    while(check.getName() !)
     if (isEmpty()) {    // if this is the first player
       first = entry;
     }
     else if (first.getNext() == null) {   // is the second player
-      if (first.getScore() > entry.getScore()) {
-        first.setNext(entry);
-      }
-      else {
-        entry.setNext(first);
-        first = entry;
+      if (name != first.getName()) {
+        if (first.getScore() > entry.getScore()) {
+          first.setNext(entry);
+        }
+        else {
+          entry.setNext(first);
+          first = entry;
+        }
       }
     }
     else {
+      Player dupCheck = first;
+      Player beforeDup = first;
+      Player leadBefore = first;
+      while(dupCheck != null && !dupCheck.getName().equals(entry.getName())) {
+        dupCheck = dupCheck.getNext();
+      }
+      if(dupCheck != null && dupCheck.getName().equals(entry.getName())) {
+        if(dupCheck.getScore() > entry.getScore()) {
+          return;
+        }
+        else {
+          while(beforeDup.getNext() != dupCheck) {
+            beforeDup = beforeDup.getNext();
+          }
+          beforeDup.setNext(dupCheck.getNext());
+          while(beforeDup.getScore() != first.getScore()) {
+            while(leadBefore.getNext().getScore() != beforeDup.getScore()) {
+              leadBefore = leadBefore.getNext();
+            }
+            beforeDup = leadBefore;
+            leadBefore = first;
+          }
+          first = leadBefore;
+        }
+      }
+    
       if (first.getScore() < entry.getScore()) {
         entry.setNext(first);
         first = entry;
@@ -84,6 +110,7 @@ public class TopTenPlayersList {
           last = true;
         }
       }
+      System.out.println("");
     }
 
   }
